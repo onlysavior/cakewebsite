@@ -13,6 +13,15 @@ public class User extends BaseDO{
     private String phone;
     private String password;
     private Long point;
+    private Long location;
+
+    public Long getLocation() {
+        return location;
+    }
+
+    public void setLocation(Long location) {
+        this.location = location;
+    }
 
     public String getName() {
         return name;

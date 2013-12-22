@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cakewebsite.dao.mapper.LocationMapper">
+    <resultMap id="allColumnsResult" type="cakewebsite.common.dataobject.Location">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="gmtcreate" property="gmtcreate" javaType="java.util.Date"></result>
+    </resultMap>
+
+    <sql id="allColum">
+        id,NAME,gmtcreate
+    </sql>
+
+    <select id="list" resultMap="allColumnsResult">
+        SELECT * FROM location;
+    </select>
+
+    <select id="getById" parameterType="Long" resultMap="allColumnsResult">
+        SELECT * FROM location
+        WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE location
+        SET NAME = #{name}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM location where id = #{id}
+    </delete>
+
+    <insert id="insert">
+        INSERT INTO location (<include refid="allColum" />)
+        VALUES (#{id},#{name},now())
+    </insert>
+</mapper>

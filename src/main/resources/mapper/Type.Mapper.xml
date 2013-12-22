@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cakewebsite.dao.mapper.TypeMapper">
+    <resultMap id="allColumnsResult" type="cakewebsite.common.dataobject.Type">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="parent" property="parent"></result>
+        <result column="gmtcreate" property="gmtcreate" javaType="java.util.Date"></result>
+    </resultMap>
+
+    <sql id="allCloum">
+        id,NAME,parent,gmtcreate
+    </sql>
+
+    <select id="getParentTypes" resultMap="allColumnsResult">
+        SELECT * FROM TYPE WHERE parent = 0;
+    </select>
+
+    <select id="getChildTypes" parameterType="Long" resultMap="allColumnsResult">
+        SELECT * FROM TYPE WHERE parent = #{parent}
+    </select>
+
+    <select id="getById" parameterType="Long" resultMap="allColumnsResult">
+        SELECT * FROM TYPE WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE TYPE SET
+        NAME = #{name},
+        parent = #{parent}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO TYPE (<include refid="allCloum" />)
+        VALUES
+        (#{id},#{name},#{parent},now())
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM type where id = #{id}
+    </delete>
+</mapper>

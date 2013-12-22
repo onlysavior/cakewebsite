@@ -77,4 +77,9 @@
 
     <!--DAO-->
     <bean id="userMapper" class="cakewebsite.dao.mapper.impl.MybatisUserMapper"></bean>
+    <bean id="holidayMapper" class="cakewebsite.dao.mapper.impl.MybatisHolidayMapper"></bean>
+    <bean id="bywhoMapper" class="cakewebsite.dao.mapper.impl.MybatisBywhoMapper"></bean>
+    <bean id="locationMapper" class="cakewebsite.dao.mapper.impl.MybatisLocationMapper"></bean>
+    <bean id="typeMapper" class="cakewebsite.dao.mapper.impl.MybatisTypeMapper"></bean>
+    <bean id="specificationMapper" class="cakewebsite.dao.mapper.impl.MybatisSpecificationMapper"></bean>
 </beans>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cakewebsite.dao.mapper.SpecificationMapper">
+    <resultMap id="allColumResult" type="cakewebsite.common.dataobject.Specification">
+        <id column="id" property="id"></id>
+        <result column="weight" property="weight"></result>
+        <result column="high" property="high"></result>
+        <result column="width" property="width"></result>
+        <result column="price" property="price"></result>
+        <result column="product" property="product"></result>
+        <result column="gmtcreate" property="gmtcreate" javaType="java.util.Date"></result>
+    </resultMap>
+
+    <sql id="allColum">
+        id,weight,high,width,price,product,gmtcreate
+    </sql>
+
+    <select id="getByProduct" parameterType="Long" resultMap="allColumResult">
+        SELECT * FROM specification WHERE product = #{product}
+    </select>
+
+    <update id="update">
+        UPDATE specification SET
+        weight = #{weight},
+        high = #{high},
+        width = #{width},
+        price = #{price},
+        product = #{product}
+        WHERE id = #{id}
+    </update>
+
+    <insert id="insert">
+        INSERT INTO specification(<include refid="allColum" />)
+        VALUES (#{id},#{weight},#{high},#{width},#{price},#{product},now())
+    </insert>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM specification where id = #{id}
+    </delete>
+</mapper>

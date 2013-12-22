@@ -4,19 +4,75 @@
 
 <mapper namespace="cakewebsite.dao.mapper.UserMapper">
     <resultMap id="allColumnsResult" type="cakewebsite.common.dataobject.User">
-        <id column="id" property="id"></id>
+        <result column="id" property="id"></result>
         <result column="name" property="name"></result>
         <result column="email" property="email"></result>
         <result column="phone" property="phone"></result>
         <result column="point" property="point"></result>
         <result column="gmtcreate" property="gmtcreate" javaType="java.util.Date"></result>
+        <result column="location" property="location"></result>
     </resultMap>
 
     <sql id="allColum">
-       id,NAME,email,phone,point,gmtcreate
+       id,NAME,password,email,phone,point,gmtcreate,location
     </sql>
 
-    <select id="findById" parameterType="Long" resultMap="allColumnsResult">
-       SELECT <include refid="allColum" /> from T_USER where id = #{id}
+    <sql id="allColumWithPassword">
+       id,NAME,password,email,phone,point,gmtcreate,location
+    </sql>
+
+    <select id="findById" parameterType="Map" resultMap="allColumnsResult">
+       SELECT <include refid="allColum" /> FROM T_USER WHERE id = #{id}
+    </select>
+
+    <select id="findByNameAndPassword" parameterType="Map" resultMap="allColumnsResult">
+        SELECT <include refid="allColum" /> FROM T_USER WHERE NAME = #{name} AND password = #{password}
+    </select>
+
+    <select id="findByEmail" parameterType="Map" resultMap="allColumnsResult">
+        SELECT <include refid="allColum" /> FROM T_USER WHERE email = #{email}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO T_USER (<include refid="allColumWithPassword" />)
+        VALUES
+        (#{id},#{name},#{password},#{email},${phone},0,now(),#{location})
+    </insert>
+
+    <delete id="removeById" parameterType="Long">
+        DELETE FROM T_USER WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+       UPDATE T_USER SET
+       NAME = #{name},
+       email = #{email},
+       phone = #{phone},
+       point = #{point},
+       location = #{location}
+       WHERE id = #{id}
+    </update>
+
+    <update id="changePassword">
+        UPDATE T_USER SET
+        password = #{password}
+        WHERE id = #{id}
+    </update>
+
+    <select id="list" parameterType="Map" resultMap="allColumnsResult">
+        SELECT <include refid="allColum" /> FROM T_USER
+        <if test="location != null">
+            WHERE location = #{location}
+        </if>
+        <if test="startPos != null and pageSize != null">
+            limit #{startPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="count" parameterType="Map" resultType="Long">
+        SELECT COUNT(1) FROM T_USER
+        <if test="location != null">
+            WHERE location = #{location}
+        </if>
     </select>
 </mapper>

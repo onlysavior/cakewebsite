@@ -1,5 +1,6 @@
 package cakewebsite.test;
 
+import cakewebsite.common.dataobject.User;
 import org.junit.Assert;
 import org.junit.Before;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -29,5 +30,16 @@ public class BaseSpringTest {
         Assert.assertNotNull("the bean for class " + tClass + " & name " + name + " not exist",
                 rtn);
         return rtn;
+    }
+
+    protected User createNewUser() {
+        User user = new User();
+        user.setLocation(1L);
+        user.setEmail("onlysavior010@gmail.com");
+        user.setName("onlysavior");
+        user.setPassword("onlysai0r");
+        user.setPhone("18686684257");
+
+        return user;
     }
 }
