@@ -82,4 +82,5 @@
     <bean id="locationMapper" class="cakewebsite.dao.mapper.impl.MybatisLocationMapper"></bean>
     <bean id="typeMapper" class="cakewebsite.dao.mapper.impl.MybatisTypeMapper"></bean>
     <bean id="specificationMapper" class="cakewebsite.dao.mapper.impl.MybatisSpecificationMapper"></bean>
+    <bean id="productMapper" class="cakewebsite.dao.mapper.impl.MybatisProductMapper"></bean>
 </beans>

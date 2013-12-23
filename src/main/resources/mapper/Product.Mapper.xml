@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cakewebsite.dao.mapper.ProductMapper">
+    <resultMap id="allColumnResult" type="cakewebsite.common.dataobject.Product">
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="gmtcreate" property="gmtcreate" javaType="java.util.Date"></result>
+        <result column="shortcontent" property="shortContent"></result>
+        <result column="longcontent" property="longContent"></result>
+        <result column="taste" property="taste"></result>
+        <result column="holiday" property="holiday"></result>
+        <result column="bywho" property="byWho"></result>
+        <result column="keepcondition" property="keepCondition"></result>
+        <result column="material" property="material"></result>
+        <result column="type" property="type"></result>
+        <result column="bigpic" property="bigPic"></result>
+        <result column="smallpic" property="smallPic"></result>
+        <result column="location" property="location"></result>
+    </resultMap>
+
+    <sql id="allColumn">
+        id,NAME,shortcontent,longcontent,taste,holiday,bywho,keepcondition,material,TYPE,bigpic,smallpic,location,gmtcreate
+    </sql>
+
+    <select id="getById" parameterType="Long" resultMap="allColumnResult">
+        SELECT * FROM product WHERE id = #{id}
+    </select>
+
+    <select id="list" parameterType="Map" resultMap="allColumnResult">
+        SELECT * FROM product
+        <where>
+            <if test="location != null">
+                location = #{location}
+            </if>
+            <if test="byWho != null">
+                AND bywho = #{byWho}
+            </if>
+            <if test="type != null">
+                AND TYPE = #{type}
+            </if>
+            <if test="holiday != null">
+                AND holiday = #{holiday}
+            </if>
+        </where>
+        <if test="startPos != null and pageSize != null">
+            limit #{startPos},#{pageSize}
+        </if>
+    </select>
+
+    <select id="count" parameterType="Map" resultType="Integer">
+        SELECT COUNT(1) FROM product
+        <where>
+            <if test="location != null">
+                location = #{location}
+            </if>
+            <if test="byWho != null">
+                AND bywho = #{byWho}
+            </if>
+            <if test="type != null">
+                AND TYPE = #{type}
+            </if>
+            <if test="holiday != null">
+                AND holiday = #{holiday}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO product (<include refid="allColumn" />)
+        VALUES (
+          #{id},#{name},#{shortContent},#{longContent},#{taste},#{holiday},#{byWho}
+          ,#{keepCondition},#{material},#{type},#{bigPic},#{smallPic},#{location},now()
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE product SET
+        NAME = #{name},
+        shortcontent = #{shortContent},
+        longcontent = #{longContent},
+        taste = #{taste},
+        holiday = #{holiday},
+        bywho = #{byWho},
+        keepcondtion = #{keepCondition},
+        materical = #{materical},
+        TYPE = #{type},
+        bigpic = #{bigPic},
+        smallpic = #{smallPic},
+        location = #{location}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM product where id = #{id}
+    </delete>
+</mapper>
