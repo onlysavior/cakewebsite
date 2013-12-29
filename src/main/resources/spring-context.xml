@@ -17,4 +17,12 @@
 
     <import resource="classpath*:spring-data.xml" />
     <import resource="classpath*:spring-mvc-front.xml" />
+
+    <!--biz-->
+    <bean id="productManager" class="cakewebsite.manager.ProductManager" />
+    <bean id="bywhoManager" class="cakewebsite.manager.ByWhoManager" />
+    <bean id="locationManager" class="cakewebsite.manager.LocationManager" />
+    <bean id="typeManager" class="cakewebsite.manager.TypeManager" />
+    <bean id="holidayManager" class="cakewebsite.manager.HolidayManager" />
+    <bean id="cartManager" class="cakewebsite.manager.CartManager" />
 </beans>

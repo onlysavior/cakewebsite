@@ -2,6 +2,7 @@
        xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"  xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="
                 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
                 http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
@@ -68,4 +69,20 @@
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
         <property name="annotationClass" value="cakewebsite.common.annotation.MyBatisMapper"/>
     </bean>
+
+    <!--redis-->
+    <bean id="jredisConnectionFactory" class="org.springframework.data.redis.connection.jredis.JredisConnectionFactory"
+          p:hostName="locahost" p:port="6379" />
+    <bean id="redisTemplate"
+          class="org.springframework.data.redis.core.RedisTemplate"
+          p:connectionFactory-ref="jredisConnectionFactory"/>
+
+    <!--DAO-->
+    <bean id="userMapper" class="cakewebsite.dao.mapper.impl.MybatisUserMapper"></bean>
+    <bean id="holidayMapper" class="cakewebsite.dao.mapper.impl.MybatisHolidayMapper"></bean>
+    <bean id="bywhoMapper" class="cakewebsite.dao.mapper.impl.MybatisBywhoMapper"></bean>
+    <bean id="locationMapper" class="cakewebsite.dao.mapper.impl.MybatisLocationMapper"></bean>
+    <bean id="typeMapper" class="cakewebsite.dao.mapper.impl.MybatisTypeMapper"></bean>
+    <bean id="specificationMapper" class="cakewebsite.dao.mapper.impl.MybatisSpecificationMapper"></bean>
+    <bean id="productMapper" class="cakewebsite.dao.mapper.impl.MybatisProductMapper"></bean>
 </beans>
